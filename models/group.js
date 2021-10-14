@@ -1,4 +1,5 @@
 'use strict';
+const { group } = require('console');
 const {
   Model
 } = require('sequelize');
@@ -11,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      group.hasMany(models.users_groups,{foreignKey:"user_id"});
     }
   };
   Group.init({
