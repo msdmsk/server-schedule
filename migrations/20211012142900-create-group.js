@@ -8,10 +8,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      group_id: {
-        type: Sequelize.INTEGER
-      },
       group_name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       created_at: {

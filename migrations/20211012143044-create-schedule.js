@@ -10,21 +10,25 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references:{
-          model:"user",
+          model:"Users",
           key:"id"
          }
       },
       date: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       todo: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       group_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references:{
-          model:"group",
+          model:"Groups",
           key:"id"
          }
       },

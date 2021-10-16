@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      group.hasMany(models.users_groups,{foreignKey:"user_id"});
+      group.hasMany(models.users_groups,{foreignKey:"group_id"});
+      group.hasMany(models.schedule,{foreignKey:"group_id"});
     }
   };
   Group.init({
-    group_id: DataTypes.INTEGER,
     group_name: DataTypes.STRING
   }, {
     sequelize,
