@@ -1,5 +1,4 @@
 const User = require("../../models").user;
-const Group = require("../../models").group;
 const Schedule= require("../../models").schedule;
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
@@ -8,7 +7,7 @@ const bCrypt = require("bcryptjs");
 const logIn = async(req,res)=>{
  const {name,password}= req.body;
  try{
-  const CurrensUser = await User.findOne({
+  const currentUser = await User.findOne({
    where:{name},
   });
   if (currentUser === null){
@@ -19,7 +18,7 @@ const logIn = async(req,res)=>{
    );
    const newUser= await User.create({
     name,
-    password_hash
+    password_hash,
    });
   res.status(200).json({ currentUser: newUser });
   return;
@@ -34,6 +33,50 @@ const logIn = async(req,res)=>{
 }
 };
 
+const setProfile = async(req,res)=>{
+ const id = req.param("id");
+ const {name} = req.body;
+ try{
+  const user = await User.findOne({
+   where:{user_id},
+  });
+  user.name = name;
+  const updatedUser = await user.save();
+  res.status(200).json({updatedUser});
+ }catch(error){
+  res.status(500).json({error:"サーバーエラー"})
+ }
+};
+
+const getSchedules = async(req,res)=>{
+ const user_id = req.param("id");
+ try{
+  const schedules = await Schedule.findAll({
+  where:{user_id:user_id},
+  });
+  res.status(200).json({schedules});
+  } catch (error) {
+  res.status(500).json({ error: "サーバーエラー" });
+  }
+ };
+
+  const sendSchedule = async(req,res)=>{
+   const user_id = req.param("id");
+   const {schedule, current_user_id} = req.body;
+   try{
+    const postSchedule = await Schedule.create({
+     schedule,
+     user_id:current_user_id,
+    });
+    res.status(200).json({postSchedule});
+   }catch(error){
+    res.status(500).json({error:"サーバーエラー"});
+   }
+  };
+
 module.exports= {
  logIn,
+ setProfile,
+ getSchedules,
+ sendSchedule
 };

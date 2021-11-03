@@ -16,23 +16,34 @@ const express = require("express");
     });
   });
 
+const {logIn, setProfile, getSchedules, sendSchedule} = require("./api/users");
+
 app.post("/api/users/session", (req,res) => {
+  logIn(req,res);
 });
 
 app.post("/api/users/:id/edit", (req,res) => {
+  setProfile(req,res);
 });
 
-app.post("/api/users/:id/edit/schedules", (req,res) => {
+app.get("/api/users/:id/schedules", (req,res) => {
+  getSchedules(req,res);
 });
 
-app.post("/api/users/:id/schedules", (req,res) => {
+app.post("/api/users/:id/schedule", (req,res) => {
+  sendSchedule(req,res);
 });
+
+const {findGroupId, getGroupSchedules, sendGroupSchedule} = require("./api/group");
 
 app.post("/api/users/:id/find_group_id", (req, res) => {
+  findGroupId(req,res);
 });
 
 app.get("/api/groups/:id/schedules", (req, res) => {
+  getGroupSchedules(req,res);
 });
 
-app.post("/api/groups/:id/edit/schedules", (req,res) => {
+app.post("/api/groups/:id/schedule", (req,res) => {
+  sendGroupSchedule(req,res);
 });
