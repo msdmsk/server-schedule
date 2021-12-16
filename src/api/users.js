@@ -5,8 +5,10 @@ const Op = Sequelize.Op;
 const bCrypt = require("bcryptjs");
 
 const logIn = async(req,res)=>{
+ console.log("recieve Lodin data");
  const {name,password}= req.body;
  try{
+  console.log(User);
   const currentUser = await User.findOne({
    where:{name},
   });
@@ -29,6 +31,7 @@ const logIn = async(req,res)=>{
  }
  res.status(200).json({currentUser});
 }catch(error){
+ console.log(error);
  screen.status(500).json({error:"サーバーエラーです。"});
 }
 };

@@ -19,6 +19,7 @@ const express = require("express");
 const {logIn, setProfile, getSchedules, sendSchedule} = require("./api/users");
 
 app.post("/api/users/session", (req,res) => {
+  console.log("サーバー側");
   logIn(req,res);
 });
 

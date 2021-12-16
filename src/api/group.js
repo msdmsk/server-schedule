@@ -42,7 +42,7 @@ const findGroupId = async(req,res)=>{
     res.status(500).json({ error: "サーバーエラー" });
     }
    };
-  
+
     const sendGroupSchedule = async(req,res)=>{
      const group_id = req.param("id");
      const {groupSchedule, current_group_id} = req.body;
